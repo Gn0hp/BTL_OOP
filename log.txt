@@ -1,0 +1,36 @@
+audio visual anim https://github.com/gauravk95/audio-visualizer-android
+simplify process( get permission) https://github.com/Karumi/Dexter
+
+-Dexster: import to able to request android permission in runtime
+
+-Set listview to list song
+-Set permission(in manifest file) AND android:requestLegacyExternalStorage="true"
+create RuntimePermission 
+-find song in device
+-add to items then dislay
+items -> listview through ArrayAdapter
+*) BaseAdapter là 1 b? di?u h?p(abtract class)
+	->ArrayAdapter: họat động tốt cho dữ liệu trong các arrays hoặc arrayslist
+chuyển đổi dữ liệu đầu vào thành các đặc tính phù hơp với đầuu ra(ở dây là listView)
+
+-LinearLayout: Xếp các view con 1 liên tục theo chiều ngang hoặc đứng điều chỉnh kích thước qua weight
+-RelativeLayout: Các view con được xác định bởi mối liên hệ với view cha 
+
+
+-Parcelable(Interface) (nhanh hơn nhiều lần Seriallizable(phải chuyển sang bytestream):
+ +)Truyền data giữa các component, các state và data của object lưu trong 1 Parcel
+ +)2 phương thức chính:
+	writeToParcel(): ghi state và data vào Parcel
+	CREATOR: reconstruct object từ Parcel
+
+-jaudiotagger(external libs): chỉnh sửa thông tin trong audioFile
+
+-Uri:(Uniform Resource Identifier) để truy vấn content provider để lấy data. Chứa tên của all provider(authority) và tên trỏ đến 1 bản ghi(path)
+Đồng bộ dữ liệu của ứng dụng với server bằng cách sử dụng AbstractThreadedSyncAdapter Tải dữ liệu lên UI sử dụng CursorLoader
+Chia sẻ dữ liệu từ ứng dụng tới các ứng dụng khác
+ 
+-Intent: chỉ ra activity cần thực hiện ->(hành động cần thực hiện, dữ liệu cho hành động đó)
+-Bunlde: đóng gói các dữ liệu cần được truyền qua lại giữa các intent
+-Context: Cung cấp quyền truy cập thông tin về các trạng thái của ứng dụng
+
+-PorterDuff.Mode: trồng lên nhau 
