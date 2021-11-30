@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 //        listView.setAdapter(myAdapter);
 
         customAdapter customAdapter=new customAdapter();        //sync all adapter              //
-        listView.setAdapter(customAdapter);
+        listView.setAdapter(customAdapter);     //set cho toàn bộ phần tử của listView
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public class customAdapter extends BaseAdapter{
+    public class customAdapter extends BaseAdapter{             //chỉ xử lý 1 object
 
         @Override
         public int getCount() {

@@ -108,7 +108,7 @@ public class PlayerActivity extends AppCompatActivity {
 
         updateSeekbar=new Thread(){
             @Override
-            public void run(){      //update thanh seekbar khi kéo
+            public void run(){      //update cái cục kéo khi chạy media
                 int totalDuration = mediaPlayer.getDuration();
                 int currentposition = 0;
                 while(currentposition<totalDuration){
@@ -118,7 +118,7 @@ public class PlayerActivity extends AppCompatActivity {
                         seekBar.setProgress(currentposition);
 
 
-                    } catch (InterruptedException | IllegalStateException e)  {
+                    } catch (Exception e)  {
                         e.printStackTrace();
                     }
                 }
@@ -206,17 +206,34 @@ public class PlayerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mediaPlayer.stop();             // stop và giải phóng media player
                 mediaPlayer.release();
-
                 position=((position+1)>=mySongs.size()?(0):position+1);
-
                 Uri u=Uri.parse(mySongs.get(position).toString());
                 mediaPlayer=MediaPlayer.create(getApplicationContext(),u);      //tạo 1 media player mới
                 sname=mySongs.get(position).getName();
                 txtname.setText(sname);
                 mediaPlayer.start();
+                String endTime=createTime(mediaPlayer.getDuration());
+                txtstop.setText(endTime);
+                seekBar.setMax(mediaPlayer.getDuration());
+                Thread updateSeekbar1=new Thread(){
+                    @Override
+                    public void run(){      //update cái cục kéo khi chạy media
+                        int totalDuration = mediaPlayer.getDuration();
+                        int currentposition = 0;
+                        while(currentposition<totalDuration){
+                            try{
+                                sleep(500);
+                                currentposition=mediaPlayer.getCurrentPosition();
+                                seekBar.setProgress(currentposition);
+
+                            } catch (Exception e)  {
+                                e.printStackTrace();
+                            }
+                        }
+                    }};
+                updateSeekbar1.start();
                 btnplay.setBackgroundResource(R.drawable.ic_pause);
                 startAnimation(imageView);
-
                 int audiosessionId=mediaPlayer.getAudioSessionId();
                 if(audiosessionId!=-1){
                     barVisualizer.setAudioSessionId(audiosessionId);
@@ -229,13 +246,31 @@ public class PlayerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mediaPlayer.stop();
                 mediaPlayer.release();
-
                 position=((position-1)<0?(mySongs.size()-1):position-1);
                 Uri u=Uri.parse(mySongs.get(position).toString());
                 mediaPlayer = MediaPlayer.create(getApplicationContext(),u);
                 sname=mySongs.get(position).getName();
                 txtname.setText(sname);
                 mediaPlayer.start();
+                String endTime=createTime(mediaPlayer.getDuration());
+                txtstop.setText(endTime);
+                seekBar.setMax(mediaPlayer.getDuration());
+                Thread updateSeekbar1=new Thread(){
+                    @Override
+                    public void run(){      //update cái cục kéo khi chạy media
+                        int totalDuration = mediaPlayer.getDuration();
+                        int currentposition = 0;
+                        while(currentposition<totalDuration){
+                            try{
+                                sleep(500);
+                                currentposition=mediaPlayer.getCurrentPosition();
+                                seekBar.setProgress(currentposition);
+                            } catch (Exception e)  {
+                                e.printStackTrace();
+                            }
+                        }
+                    }};
+                updateSeekbar1.start();
                 btnplay.setBackgroundResource(R.drawable.ic_pause);
                 startAnimation(imageView);
 
