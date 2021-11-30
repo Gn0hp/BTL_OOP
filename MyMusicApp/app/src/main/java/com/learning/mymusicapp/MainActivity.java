@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     ListView listView;
-    String[] items;     //songs
+    String[] items;     //songs name
 
 
     @Override
@@ -45,19 +45,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        listView=findViewById(R.id.listViewSong);
+        listView=findViewById(R.id.listViewSong);       //tìm view id trong file xml
 
         runtimePermission();
     }
 
 
     //storage permission ->manifest file
-    public void runtimePermission(){
+    public void runtimePermission(){            //quyền truy cập và ghi âm
         Dexter.withContext(this).withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO)
                 .withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
-                        displaySong();
+                        displaySong();      // nếu cho phép thì displaySong(hàm để hiển thị list bài hát)
                     }
 
                     @Override
@@ -67,22 +67,22 @@ public class MainActivity extends AppCompatActivity {
                 }).check();
     }
 
-    public ArrayList<File> findSong(File file){
+    public ArrayList<File> findSong(File file){         //tìm tất cả bài hát trong cả bộ nhớ
         ArrayList<File> songsList = new ArrayList<>();
 
 
 
-        File[] files = file.listFiles();
-        try {
+        File[] files = file.listFiles();        //list ra tất cả các file trong (File) file
+        try {               //nhớ là phải trong try catch
             //check all file and folder
             for (int i= 0;i<files.length;++i) {
                 File singleFile=files[i];
-                if (singleFile.isDirectory() && !singleFile.isHidden()) {
+                if (singleFile.isDirectory() && !singleFile.isHidden()) {       //nếu là folder và không bị ẩn thì gọi đệ quy tìm trong folder đó
                     songsList.addAll(findSong(singleFile));         //check in single file
 
                 } else {
                     if (singleFile.getName().endsWith(".mp3") || singleFile.getName().endsWith(".wav")) {
-                        songsList.add(singleFile);
+                        songsList.add(singleFile);      //end = .mp3 hoặc wav thì thêm vào songList
                     }
                 }
             }
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         items = new String[mySong.size()];
         //add single to items
         for(int i=0;i<mySong.size();++i){
-            items[i]=mySong.get(i).getName().toString().replace(".mp3","").replace(".wav","");
+            items[i]=mySong.get(i).getName().toString().replace(".mp3","").replace(".wav","");      //thêm name(toString) vào String[] để hiển thị
 
         }
 
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 //        ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,items); //convert data
 //        listView.setAdapter(myAdapter);
 
-        customAdapter customAdapter=new customAdapter();        //sync all adapter
+        customAdapter customAdapter=new customAdapter();        //sync all adapter              //
         listView.setAdapter(customAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -125,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),PlayerActivity.class).putExtra("songs",mySong).putExtra("songname",songName).putExtra("pos",position));
             }
         });
-
-
 
     }
 
@@ -150,8 +148,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            View myView=getLayoutInflater().inflate(R.layout.list_item,null);
-            TextView textsong=myView.findViewById(R.id.txtsongname);
+            View myView=getLayoutInflater().inflate(R.layout.list_item,null);       //lấy view listItem từ trong xml files
+            TextView textsong=myView.findViewById(R.id.txtsongname);            //lây view của txtsongname
             textsong.setSelected(true);
             textsong.setText(items[i]);
 

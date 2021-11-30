@@ -6,20 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:background="@color/black"
-
     >
-
 
 
     <ListView
         android:id="@+id/listViewSong"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@android:color/transparent"
         android:background="@drawable/background_main"
+        android:divider="@android:color/transparent"
         android:dividerHeight="10.0sp"
         android:padding="8dp"
-
         />
 
 </RelativeLayout>
