@@ -27,6 +27,9 @@ import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -87,6 +90,12 @@ public class MainActivity extends AppCompatActivity {
         catch (NullPointerException e) {
             e.printStackTrace();
         }
+        Collections.sort(songsList, new Comparator<File>() {
+            @Override
+            public int compare(File o1, File o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
         return songsList;
 
     }

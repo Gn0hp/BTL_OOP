@@ -65,6 +65,7 @@ public class PlayerActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         getSupportActionBar().setTitle("Now Playing");
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -146,9 +147,9 @@ public class PlayerActivity extends AppCompatActivity {
         txtstop.setText(endTime);
 
         final Handler handler=new Handler();
-        final int delay=1000;
+        final int delay=300;
 
-        //xu ly tre time khi di chuyen (tua)
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -194,6 +195,7 @@ public class PlayerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mediaPlayer.stop();
                 mediaPlayer.release();
+
                 position=((position+1)>=mySongs.size()?(0):position+1);
                 Uri u=Uri.parse(mySongs.get(position).toString());
                 mediaPlayer=MediaPlayer.create(getApplicationContext(),u);
@@ -215,6 +217,7 @@ public class PlayerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mediaPlayer.stop();
                 mediaPlayer.release();
+
                 position=((position-1)<0?(mySongs.size()-1):position-1);
                 Uri u=Uri.parse(mySongs.get(position).toString());
                 mediaPlayer = MediaPlayer.create(getApplicationContext(),u);
