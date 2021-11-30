@@ -53,30 +53,31 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"></SeekBar>
 
-            <TextView android:id="@+id/txtstart"
+            <TextView
+                android:id="@+id/txtstart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/seekbar"
-                android:layout_centerInParent="true"
                 android:layout_alignParentLeft="false"
+                android:layout_centerInParent="true"
                 android:layout_marginLeft="20dp"
+
+                android:layout_toLeftOf="@id/seekbar"
                 android:text="0:10"
                 android:textColor="#FFF"
-                android:textSize="14sp"
+                android:textSize="14sp"></TextView>
 
-                ></TextView>
-            <TextView android:id="@+id/txtstop"
+            <TextView
+                android:id="@+id/txtstop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/seekbar"
-                android:layout_centerInParent="true"
                 android:layout_alignParentRight="false"
+                android:layout_centerInParent="true"
                 android:layout_marginRight="20dp"
+                android:layout_toRightOf="@id/seekbar"
+
                 android:text="4:10"
                 android:textColor="#FFF"
-                android:textSize="14sp"
-
-                ></TextView>
+                android:textSize="14sp"></TextView>
         </RelativeLayout>
 
     </LinearLayout>

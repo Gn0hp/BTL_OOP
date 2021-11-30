@@ -9,7 +9,7 @@ create RuntimePermission
 -find song in device
 -add to items then dislay
 items -> listview through ArrayAdapter
-*) BaseAdapter là 1 b? di?u h?p(abtract class)
+*) BaseAdapter là 1 bộ điều hợp(abtract class)
 	->ArrayAdapter: họat động tốt cho dữ liệu trong các arrays hoặc arrayslist
 chuyển đổi dữ liệu đầu vào thành các đặc tính phù hơp với đầuu ra(ở dây là listView)
 

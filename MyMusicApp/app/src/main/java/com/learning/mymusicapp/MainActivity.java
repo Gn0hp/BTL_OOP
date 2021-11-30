@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //add items to listview
-//        ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,items); //convert data
+//        ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,items);   //convert data
 //        listView.setAdapter(myAdapter);
 
         customAdapter customAdapter=new customAdapter();        //sync all adapter              //

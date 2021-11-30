@@ -65,11 +65,10 @@ public class PlayerActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         getSupportActionBar().setTitle("Now Playing");
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        btnprev=findViewById(R.id.btnprev);
+        btnprev=findViewById(R.id.btnprev);             //get Id từ View
         btnnext=findViewById(R.id.btnnext);
         btnplay=findViewById(R.id.playbtn);
         btnff=findViewById(R.id.btnff);
@@ -93,6 +92,8 @@ public class PlayerActivity extends AppCompatActivity {
         Bundle bundle=i.getExtras();
 
 
+        //lấy thông tin bài hát mà bấm vào ở mainActivity
+
         mySongs=(ArrayList) bundle.getParcelableArrayList("songs");    //chieu sangg Intent trong displyasong main
         String songName=i.getStringExtra("songname");
         position=bundle.getInt("pos");
@@ -101,12 +102,13 @@ public class PlayerActivity extends AppCompatActivity {
         sname=mySongs.get(position).getName();
         txtname.setText(sname);
 
+
         mediaPlayer=MediaPlayer.create(getApplicationContext(),uri);
         mediaPlayer.start();
 
         updateSeekbar=new Thread(){
             @Override
-            public void run(){
+            public void run(){      //update thanh seekbar khi kéo
                 int totalDuration = mediaPlayer.getDuration();
                 int currentposition = 0;
                 while(currentposition<totalDuration){
@@ -122,11 +124,18 @@ public class PlayerActivity extends AppCompatActivity {
                 }
             }
         };
+
+
         seekBar.setMax(mediaPlayer.getDuration());
         updateSeekbar.start();
+
+        //thiet ke
         seekBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.teal_200), PorterDuff.Mode.MULTIPLY);
         seekBar.getThumb().setColorFilter(getResources().getColor(R.color.teal_200), PorterDuff.Mode.SRC_IN);
 
+
+
+        //update nhạc khi kéo seekbar
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -143,13 +152,15 @@ public class PlayerActivity extends AppCompatActivity {
                 mediaPlayer.seekTo(seekBar.getProgress());
             }
         });
+
+
         String endTime=createTime(mediaPlayer.getDuration());
         txtstop.setText(endTime);
 
         final Handler handler=new Handler();
         final int delay=300;
 
-
+        //set text của textstart, khi kéo seekThumb đến nơi thì trễ 300ms
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -175,7 +186,7 @@ public class PlayerActivity extends AppCompatActivity {
                 }
             }
         });
-        //next listener when End
+        //next listener when End    //tự chuyển sang bài tiếp theo khi hết
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -183,7 +194,7 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
 
-        int audiosessionId=mediaPlayer.getAudioSessionId();  //reuse
+        int audiosessionId=mediaPlayer.getAudioSessionId();
         if(audiosessionId!=-1){
             barVisualizer.setAudioSessionId(audiosessionId);
         }
@@ -193,12 +204,13 @@ public class PlayerActivity extends AppCompatActivity {
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mediaPlayer.stop();
+                mediaPlayer.stop();             // stop và giải phóng media player
                 mediaPlayer.release();
 
                 position=((position+1)>=mySongs.size()?(0):position+1);
+
                 Uri u=Uri.parse(mySongs.get(position).toString());
-                mediaPlayer=MediaPlayer.create(getApplicationContext(),u);
+                mediaPlayer=MediaPlayer.create(getApplicationContext(),u);      //tạo 1 media player mới
                 sname=mySongs.get(position).getName();
                 txtname.setText(sname);
                 mediaPlayer.start();
