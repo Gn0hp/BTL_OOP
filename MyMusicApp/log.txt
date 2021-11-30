@@ -32,8 +32,6 @@ Chia sẻ dữ liệu từ ứng dụng tới các ứng dụng khác
 -Intent: chỉ ra activity cần thực hiện ->(hành động cần thực hiện, dữ liệu cho hành động đó)
 -Bunlde: đóng gói các dữ liệu cần được truyền qua lại giữa các intent
 -Context: Cung cấp quyền truy cập thông tin về các trạng thái của ứng dụng
+-Handler: xử lý luồng hiện tại
 
 -PorterDuff.Mode: trồng lên nhau 
-
-
-set icon launcher in res/mipmap 

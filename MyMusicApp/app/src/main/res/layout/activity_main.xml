@@ -9,13 +9,16 @@
 
     >
 
+
+
     <ListView
         android:id="@+id/listViewSong"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:background="@drawable/background_main"
         android:dividerHeight="10.0sp"
         android:padding="8dp"
-        android:divider="@android:color/transparent"
 
         />
 

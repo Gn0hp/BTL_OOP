@@ -14,6 +14,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -59,6 +62,7 @@ public class PlayerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         getSupportActionBar().setTitle("Now Playing");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -76,6 +80,9 @@ public class PlayerActivity extends AppCompatActivity {
         barVisualizer=findViewById(R.id.barVisualizer);
         imageView =findViewById(R.id.imageview);
 
+
+
+
         if(mediaPlayer!=null){
             mediaPlayer.stop();
             mediaPlayer.release();
@@ -83,6 +90,7 @@ public class PlayerActivity extends AppCompatActivity {
 
         Intent i=getIntent();
         Bundle bundle=i.getExtras();
+
 
         mySongs=(ArrayList) bundle.getParcelableArrayList("songs");    //chieu sangg Intent trong displyasong main
         String songName=i.getStringExtra("songname");
