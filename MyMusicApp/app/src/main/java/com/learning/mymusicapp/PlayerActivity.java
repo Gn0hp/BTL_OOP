@@ -199,44 +199,6 @@ public class PlayerActivity extends AppCompatActivity {
             barVisualizer.setAudioSessionId(audiosessionId);
         }
 
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mediaPlayer.stop();             // stop và giải phóng media player
-                mediaPlayer.release();
-                position=((position+1)>=mySongs.size()?(0):position+1);
-                Uri u=Uri.parse(mySongs.get(position).toString());
-                mediaPlayer=MediaPlayer.create(getApplicationContext(),u);      //tạo 1 media player mới
-                sname=mySongs.get(position).getName();
-                txtname.setText(sname);
-                mediaPlayer.start();
-                String endTime=createTime(mediaPlayer.getDuration());
-                txtstop.setText(endTime);
-                seekBar.setMax(mediaPlayer.getDuration());
-                Thread updateSeekbar1=new Thread(){
-                    @Override
-                    public void run(){      //update cái cục kéo khi chạy media
-                        int totalDuration = mediaPlayer.getDuration();
-                        int currentposition = 0;
-                        while(currentposition<totalDuration){
-                            try{
-                                sleep(500);
-                                currentposition=mediaPlayer.getCurrentPosition();
-                                seekBar.setProgress(currentposition);
-
-                            } catch (Exception e)  {
-                                e.printStackTrace();
-                            }
-                        }
-                    }};
-                updateSeekbar1.start();
-                btnplay.setBackgroundResource(R.drawable.ic_pause);
-                int audiosessionId=mediaPlayer.getAudioSessionId();
-                if(audiosessionId!=-1){
-                    barVisualizer.setAudioSessionId(audiosessionId);
-                }
-            }
-        });
 
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -268,6 +230,12 @@ public class PlayerActivity extends AppCompatActivity {
                             }
                         }
                     }};
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        btnnext.performClick();
+                    }
+                });
                 updateSeekbar1.start();
                 btnplay.setBackgroundResource(R.drawable.ic_pause);
                 startAnimation(imageView);
@@ -308,6 +276,12 @@ public class PlayerActivity extends AppCompatActivity {
                         }
                     }};
                 updateSeekbar1.start();
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        btnnext.performClick();
+                    }
+                });
                 btnplay.setBackgroundResource(R.drawable.ic_pause);
                 startAnimation(imageView);
 
