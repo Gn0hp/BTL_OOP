@@ -238,7 +238,7 @@ public class PlayerActivity extends AppCompatActivity {
                 });
                 updateSeekbar1.start();
                 btnplay.setBackgroundResource(R.drawable.ic_pause);
-                startAnimation(imageView);
+                startAnimationNext(imageView);
                 int audiosessionId=mediaPlayer.getAudioSessionId();
                 if(audiosessionId!=-1){
                     barVisualizer.setAudioSessionId(audiosessionId);
@@ -283,7 +283,7 @@ public class PlayerActivity extends AppCompatActivity {
                     }
                 });
                 btnplay.setBackgroundResource(R.drawable.ic_pause);
-                startAnimation(imageView);
+                startAnimationPrev(imageView);
 
                 int audiosessionId=mediaPlayer.getAudioSessionId();
                 if(audiosessionId!=-1){
@@ -311,8 +311,16 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
 
-    public void startAnimation(View view){
+    public void startAnimationNext(View view){
         ObjectAnimator animator=ObjectAnimator.ofFloat(imageView,"rotation",0f,360f);
+        animator.setDuration(1000);
+        AnimatorSet animatorSet=new AnimatorSet();
+        animatorSet.playTogether(animator);
+        animatorSet.start();
+
+    }
+    public void startAnimationPrev(View view){
+        ObjectAnimator animator=ObjectAnimator.ofFloat(imageView,"rotation",0f,-360f);
         animator.setDuration(1000);
         AnimatorSet animatorSet=new AnimatorSet();
         animatorSet.playTogether(animator);
